@@ -372,20 +372,21 @@ footer{color:var(--muted);font-size:12.5px;display:grid;gap:4px;padding:0 8px}
 .hm th{padding:0 4px 8px;text-align:center}
 .hm th.cur{color:var(--ink);font-weight:400}
 .hm th .pl{display:inline-block;padding:2px 14px;border-radius:999px}
-.hm th.cur .pl{background:var(--accent-deep);color:var(--accent-ink);font-weight:600}
+.hm th.cur .pl{color:var(--ink);font-weight:700;font-size:15px}
 .hm th.consh{text-align:left;padding-left:12px}
 .hm tr.gh td{background:none;font-size:15px;font-weight:600;padding:16px 8px 4px;position:static}
 .hm td.fn{background:none;padding-left:6px;position:sticky;left:0;z-index:1;background:var(--surface)}
 .hm td.c{min-width:92px;color:var(--ink);background:none;outline:0}
 .hm td.c.na{color:var(--muted);text-align:center}
-.hm td.c.cur{background:var(--accent-soft);outline:0}
-.hm td.c.cur.gt{border-radius:16px 16px 0 0;padding-top:8px}
-.hm td.c.cur.gb{border-radius:0 0 16px 16px;padding-bottom:8px}
-.hm td.c.cur.gt.gb{border-radius:16px}
+.hm td.c.cur{outline:0;min-width:128px}
 .hm td.c .tl{display:grid;grid-template-columns:auto 1fr;column-gap:7px;align-items:center;text-align:left;padding:6px 10px;border-radius:14px;background:color-mix(in srgb,var(--qc) 20%,var(--surface))}
 .hm td.c .tl .dt{grid-row:1/3;width:10px;height:10px;border-radius:50%;background:var(--qc)}
 .hm td.c .tl b{font-size:13.5px;font-weight:600;display:block}
 .hm td.c .tl small{font-size:11.5px;color:var(--muted);opacity:1;display:block;margin:0}
+.hm td.c.cur .tl{padding:11px 14px;border-radius:18px;column-gap:9px;box-shadow:var(--shadow)}
+.hm td.c.cur .tl .dt{width:13px;height:13px}
+.hm td.c.cur .tl b{font-size:18px;line-height:1.2}
+.hm td.c.cur .tl small{font-size:13px;color:var(--ink)}
 .hm td.cons{min-width:110px;white-space:nowrap;font-family:var(--f-num);font-size:13px;padding-left:12px}
 .hm td.cons b{margin-right:8px;font-weight:600}
 .cbar{display:inline-block;vertical-align:middle;width:56px;height:8px;border-radius:999px;background:var(--soft);overflow:hidden}
@@ -491,7 +492,7 @@ footer{color:var(--muted);font-size:12.5px;display:grid;gap:4px;padding:0 8px}
 
   <section class="panel" id="p-heat">
     <div class="ph"><h2>3 · Heatmap ความสม่ำเสมอ</h2></div>
-    <p class="note">ช่วงเวลาที่เลือกอยู่ถูกเน้นด้วยแถบสีฟ้า ช่องว่าง = กองทุนยังไม่มีข้อมูลช่วงนั้น</p>
+    <p class="note">ช่วงเวลาที่เลือกอยู่แสดงเป็นการ์ดใหญ่ ช่องว่าง = กองทุนยังไม่มีข้อมูลช่วงนั้น</p>
     <div class="scroll"><table class="hm" id="heat"></table></div>
     <p class="note" id="heatkey"></p>
   </section>
@@ -1006,7 +1007,7 @@ function heat() {
     });
   }
   T.innerHTML = h + "</tbody>";
-  $("heatkey").innerHTML = `จุดสี = Quartile · <b>Top 41%</b> = เปอร์เซ็นไทล์อันดับในกลุ่ม ยิ่งต่ำยิ่งดี · ตัวเล็ก = ผลตอบแทนช่วงนั้น · แถบฟ้า = ช่วงเวลาที่เลือกอยู่ · คอลัมน์ขวา = จำนวนช่วงที่อยู่ Q1–Q2`;
+  $("heatkey").innerHTML = `จุดสี = Quartile · <b>Top 41%</b> = เปอร์เซ็นไทล์อันดับในกลุ่ม ยิ่งต่ำยิ่งดี · ตัวเล็ก = ผลตอบแทนช่วงนั้น · การ์ดใหญ่ = ช่วงเวลาที่เลือกอยู่ · คอลัมน์ขวา = จำนวนช่วงที่อยู่ Q1–Q2`;
 }
 
 function spread(items, lo, hi, gap) {   // same idea as Excel: pass1 down, pass2 up
