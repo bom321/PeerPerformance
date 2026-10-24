@@ -141,7 +141,6 @@ tr.clk:hover td:first-child{border-radius:14px 0 0 14px} tr.clk:hover td:last-ch
 .hm td.c b{display:block;font-size:14px;font-weight:700;line-height:1.15}
 .hm td.c small{display:block;font-size:10.5px;font-weight:400;opacity:.78;line-height:1.2;margin-top:1px}
 .hm td.c.na{color:var(--muted);background:transparent}
-.hm td.c.cur{outline:2px solid var(--ink);outline-offset:-2px}
 .hm th.cur{color:var(--ink);font-weight:700}
 .hm tr.gh td{background:var(--bg);font-weight:600;font-size:13px;position:sticky;left:0}
 .hm td.fn{position:sticky;left:0;background:var(--surface);z-index:1}
@@ -367,35 +366,30 @@ footer{color:var(--muted);font-size:12.5px;display:grid;gap:4px;padding:0 8px}
 .sb:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @media (max-width:900px){.subs{display:contents}.sb{flex:none;white-space:nowrap;min-height:42px;border-radius:999px;padding:4px 14px;background:var(--surface)}.sb[aria-current="true"]{background:var(--accent-soft)}}
 
-/* heatmap variants */
-.hm.hv-a,.hm.hv-b,.hm.hv-c{border-collapse:separate;border-spacing:0 6px}
-.hm.hv-a td,.hm.hv-b td,.hm.hv-c td,.hm.hv-a th,.hm.hv-b th,.hm.hv-c th{border-bottom:0}
-.hm.hv-a td.c,.hm.hv-b td.c,.hm.hv-c td.c{background:none;outline:0;min-width:88px;padding:0 4px;color:var(--ink)}
-.hm.hv-a td.c.na,.hm.hv-b td.c.na,.hm.hv-c td.c.na{color:var(--muted)}
-.hm.hv-a tr.gh td,.hm.hv-b tr.gh td,.hm.hv-c tr.gh td{background:none;font-size:15px;font-weight:600;padding:14px 8px 2px}
-.hm.hv-a td.fn,.hm.hv-b td.fn,.hm.hv-c td.fn{background:var(--surface);border-radius:var(--r-sm) 0 0 var(--r-sm);padding-left:14px}
-.hm.hv-a td.cons,.hm.hv-b td.cons,.hm.hv-c td.cons{border-radius:0 var(--r-sm) var(--r-sm) 0;padding-right:14px}
-.hm.hv-a td.c,.hm.hv-a td.cons,.hm.hv-b td.c,.hm.hv-b td.cons,.hm.hv-c td.c,.hm.hv-c td.cons{background:var(--surface)}
-.hm.hv-a td.c.cur,.hm.hv-b td.c.cur,.hm.hv-c td.c.cur{background:var(--accent-soft)}
-.cons{min-width:110px;white-space:nowrap;font-family:var(--f-num);font-size:13px}
-.cons b{margin-right:8px;font-weight:600}
-.cons .cbar{display:inline-block;vertical-align:middle;width:56px;height:8px;border-radius:999px;background:var(--soft);overflow:hidden}
-.cons .cbar i{display:block;height:100%;background:var(--accent);border-radius:999px}
-/* 1 soft tiles */
-.hm .tl{display:grid;grid-template-columns:auto 1fr;column-gap:7px;align-items:center;text-align:left;padding:6px 10px;border-radius:14px;background:color-mix(in srgb,var(--qc) 20%,var(--surface))}
-.hm .tl .dt{grid-row:1/3;width:10px;height:10px;border-radius:50%;background:var(--qc)}
-.hm .tl b{font-size:13.5px;font-weight:600;display:block}
-.hm .tl small{font-size:11.5px;color:var(--muted);opacity:1;display:block}
-.hm.hv-a td.c.cur .tl{outline:2px solid var(--ink);outline-offset:-2px}
-/* 2 dots */
-.hm .dot{width:46px;height:46px;border-radius:50%;margin:3px auto;display:grid;place-items:center;border:3px solid var(--qc);background:color-mix(in srgb,var(--qc) 16%,var(--surface))}
-.hm .dot b{font-size:12.5px;font-weight:600;display:block}
-/* 3 mini bars */
-.hm .col{display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 0}
-.hm .col .trk{display:flex;align-items:flex-end;width:18px;height:40px;border-radius:999px;background:var(--soft);overflow:hidden}
-.hm .col .trk i{display:block;width:100%;border-radius:999px}
-.hm .col small{font-size:11.5px;color:var(--muted);opacity:1;margin:0}
-.ph #heatv{margin-left:auto}
+/* heatmap: soft tiles, selected period shown as a blue column band */
+.hm{border-collapse:separate;border-spacing:0;margin-top:12px}
+.hm th,.hm td{border-bottom:0;padding:3px 4px}
+.hm th{padding:0 4px 8px;text-align:center}
+.hm th.cur{color:var(--ink);font-weight:400}
+.hm th .pl{display:inline-block;padding:2px 14px;border-radius:999px}
+.hm th.cur .pl{background:var(--accent-deep);color:var(--accent-ink);font-weight:600}
+.hm th.consh{text-align:left;padding-left:12px}
+.hm tr.gh td{background:none;font-size:15px;font-weight:600;padding:16px 8px 4px;position:static}
+.hm td.fn{background:none;padding-left:6px;position:sticky;left:0;z-index:1;background:var(--surface)}
+.hm td.c{min-width:92px;color:var(--ink);background:none;outline:0}
+.hm td.c.na{color:var(--muted);text-align:center}
+.hm td.c.cur{background:var(--accent-soft);outline:0}
+.hm td.c.cur.gt{border-radius:16px 16px 0 0;padding-top:8px}
+.hm td.c.cur.gb{border-radius:0 0 16px 16px;padding-bottom:8px}
+.hm td.c.cur.gt.gb{border-radius:16px}
+.hm td.c .tl{display:grid;grid-template-columns:auto 1fr;column-gap:7px;align-items:center;text-align:left;padding:6px 10px;border-radius:14px;background:color-mix(in srgb,var(--qc) 20%,var(--surface))}
+.hm td.c .tl .dt{grid-row:1/3;width:10px;height:10px;border-radius:50%;background:var(--qc)}
+.hm td.c .tl b{font-size:13.5px;font-weight:600;display:block}
+.hm td.c .tl small{font-size:11.5px;color:var(--muted);opacity:1;display:block;margin:0}
+.hm td.cons{min-width:110px;white-space:nowrap;font-family:var(--f-num);font-size:13px;padding-left:12px}
+.hm td.cons b{margin-right:8px;font-weight:600}
+.cbar{display:inline-block;vertical-align:middle;width:56px;height:8px;border-radius:999px;background:var(--soft);overflow:hidden}
+.cbar i{display:block;height:100%;background:var(--accent);border-radius:999px}
 </style>
 
 <div class="wrap">
@@ -496,8 +490,8 @@ footer{color:var(--muted);font-size:12.5px;display:grid;gap:4px;padding:0 8px}
   </section>
 
   <section class="panel" id="p-heat">
-    <div class="ph"><h2>3 · Heatmap ความสม่ำเสมอ</h2><span class="seg" id="heatv" aria-label="รูปแบบ Heatmap"></span></div>
-    <p class="note">ช่วงเวลาที่เลือกอยู่ถูกเน้นไว้ ช่องว่าง = กองทุนยังไม่มีข้อมูลช่วงนั้น สลับรูปแบบการแสดงผลได้ที่ปุ่มด้านขวา</p>
+    <div class="ph"><h2>3 · Heatmap ความสม่ำเสมอ</h2></div>
+    <p class="note">ช่วงเวลาที่เลือกอยู่ถูกเน้นด้วยแถบสีฟ้า ช่องว่าง = กองทุนยังไม่มีข้อมูลช่วงนั้น</p>
     <div class="scroll"><table class="hm" id="heat"></table></div>
     <p class="note" id="heatkey"></p>
   </section>
@@ -991,44 +985,29 @@ function scorecard() {
 $("score").addEventListener("click", e => { if (e.target.closest("a")) return; const r = e.target.closest("tr.clk"); if (r) pick(+r.dataset.i); });
 $("score").addEventListener("keydown", e => { const r = e.target.closest("tr.clk"); if (r && e.key === "Enter") pick(+r.dataset.i); });
 
-const HEAT_V = [["a", "แบบ 1 การ์ดนุ่ม"], ["b", "แบบ 2 จุดวงกลม"], ["c", "แบบ 3 แท่งเล็ก"], ["o", "แบบเดิม"]];
-S.heatv = "a"; try { S.heatv = localStorage.getItem("ktam-heatv") || "a"; } catch (e) {}
-if (!HEAT_V.some(x => x[0] === S.heatv)) S.heatv = "a";
 function heat() {
-  const V = S.heatv, T = $("heat"), np = PER.length;
-  T.className = "hm hv-" + V;
-  $("heatv").innerHTML = HEAT_V.map(([k, n]) => `<button type="button" data-v="${k}" aria-pressed="${k === V}">${esc(n)}</button>`).join("");
-  const cons = V !== "o";
-  let h = `<thead><tr><th>กองทุน</th>${PER.map(p => `<th class="${p === S.p ? "cur" : ""}" style="text-align:center">${p}</th>`).join("")}${cons ? `<th style="text-align:left">อยู่ Q1–Q2</th>` : ""}</tr></thead><tbody>`;
+  const T = $("heat"), np = PER.length;
+  let h = `<thead><tr><th>กองทุน</th>${PER.map(p => `<th class="${p === S.p ? "cur" : ""}"><span class="pl">${p}</span></th>`).join("")}<th class="consh">อยู่ Q1–Q2</th></tr></thead><tbody>`;
   for (const {g} of visible()) {
-    h += `<tr class="gh"><td colspan="${np + 1 + (cons ? 1 : 0)}">${esc(g.title)}</td></tr>`;
-    for (const f of g.funds.filter(f => f.a === S.amc)) {
+    h += `<tr class="gh"><td colspan="${np + 2}">${esc(g.title)}</td></tr>`;
+    const fs = g.funds.filter(f => f.a === S.amc);
+    fs.forEach((f, ix) => {
+      const pos = (ix === 0 ? " gt" : "") + (ix === fs.length - 1 ? " gb" : "");
       h += `<tr><td class="fn" title="${esc(f.name || "")}">${fsLink(f)}</td>`;
       let good = 0, tot = 0;
       for (const p of PER) {
-        const N = g.N[p], r = f.rank[p], cur = p === S.p ? "cur" : "";
-        if (r == null || !N) { h += `<td class="c na ${cur}">–</td>`; continue; }
+        const N = g.N[p], r = f.rank[p], cur = p === S.p ? " cur" + pos : "";
+        if (r == null || !N) { h += `<td class="c na${cur}">–</td>`; continue; }
         const t = r / N, q = Math.min(4, Math.max(1, Math.ceil(t * 4))), tp = Math.max(1, Math.round(t * 100));
         tot++; if (q <= 2) good++;
-        const tip = `${esc(f.code)} ${p}: อันดับ ${r}/${N} · Top ${tp}% · ผลตอบแทน ${pct(f.ret[p])}`;
-        if (V === "o") h += `<td class="c ${cur}" style="background:${qColor(q)}" title="${tip}"><b>Top ${tp}%</b><small>(${pct(f.ret[p])})</small></td>`;
-        else if (V === "a") h += `<td class="c ${cur}" title="${tip}"><div class="tl" style="--qc:${qColor(q)}"><i class="dt"></i><b>Top ${tp}%</b><small>${pct(f.ret[p])}</small></div></td>`;
-        else if (V === "b") h += `<td class="c ${cur}" title="${tip}"><div class="dot" style="--qc:${qColor(q)}"><b>${tp}%</b></div></td>`;
-        else h += `<td class="c ${cur}" title="${tip}"><div class="col"><span class="trk"><i style="height:${Math.max(8, Math.round((1 - (r - 1) / Math.max(1, N)) * 100))}%;background:${qColor(q)}"></i></span><small>${tp}%</small></div></td>`;
+        h += `<td class="c${cur}" title="${esc(f.code)} ${p}: อันดับ ${r}/${N} · Top ${tp}% · ผลตอบแทน ${pct(f.ret[p])}"><div class="tl" style="--qc:${qColor(q)}"><i class="dt"></i><b>Top ${tp}%</b><small>${pct(f.ret[p])}</small></div></td>`;
       }
-      if (cons) h += `<td class="cons"><b>${good}/${tot || np}</b><span class="cbar"><i style="width:${tot ? Math.round(good / tot * 100) : 0}%"></i></span></td>`;
-      h += "</tr>";
-    }
+      h += `<td class="cons"><b>${good}/${tot || np}</b><span class="cbar"><i style="width:${tot ? Math.round(good / tot * 100) : 0}%"></i></span></td></tr>`;
+    });
   }
   T.innerHTML = h + "</tbody>";
-  $("heatkey").innerHTML = ({
-    o: `<b>Top 41%</b> (ตัวใหญ่ สีพื้น = Quartile) = เปอร์เซ็นไทล์อันดับในกลุ่ม ยิ่งต่ำยิ่งดี · <span class="m">(−1.08%)</span> (ตัวเล็ก ในวงเล็บ) = ผลตอบแทนของกองทุนในช่วงนั้น`,
-    a: `จุดสี = Quartile · <b>Top 41%</b> = เปอร์เซ็นไทล์อันดับในกลุ่ม ยิ่งต่ำยิ่งดี · ตัวเล็ก = ผลตอบแทนช่วงนั้น · คอลัมน์ขวา = จำนวนช่วงที่อยู่ Q1–Q2`,
-    b: `วงกลม: สีขอบ = Quartile ตัวเลข = Top % (ยิ่งต่ำยิ่งดี) · เอาเมาส์ชี้เพื่อดูอันดับและผลตอบแทน · คอลัมน์ขวา = จำนวนช่วงที่อยู่ Q1–Q2`,
-    c: `แท่งยิ่งสูงยิ่งอันดับดี สีแท่ง = Quartile ตัวเลขใต้แท่ง = Top % · เอาเมาส์ชี้เพื่อดูอันดับและผลตอบแทน · คอลัมน์ขวา = จำนวนช่วงที่อยู่ Q1–Q2`
-  })[V];
+  $("heatkey").innerHTML = `จุดสี = Quartile · <b>Top 41%</b> = เปอร์เซ็นไทล์อันดับในกลุ่ม ยิ่งต่ำยิ่งดี · ตัวเล็ก = ผลตอบแทนช่วงนั้น · แถบฟ้า = ช่วงเวลาที่เลือกอยู่ · คอลัมน์ขวา = จำนวนช่วงที่อยู่ Q1–Q2`;
 }
-$("heatv").addEventListener("click", e => { const b = e.target.closest("[data-v]"); if (!b) return; S.heatv = b.dataset.v; try { localStorage.setItem("ktam-heatv", S.heatv); } catch (x) {} heat(); });
 
 function spread(items, lo, hi, gap) {   // same idea as Excel: pass1 down, pass2 up
   const it = items.slice().sort((a, b) => a.y - b.y);
