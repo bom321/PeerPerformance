@@ -352,6 +352,20 @@ footer{color:var(--muted);font-size:12.5px;display:grid;gap:4px;padding:0 8px}
 .setup summary{pointer-events:none;cursor:default}
 .setup summary::before{display:none}
 .setup summary .sumt{font-size:22px;letter-spacing:-.01em}
+
+/* settings sub-pages */
+.setup .sub{display:none;flex-direction:column;gap:10px}
+.setup[data-cur="up"] .sub[data-sub="up"],.setup[data-cur="hist"] .sub[data-sub="hist"],.setup[data-cur="grp"] .sub[data-sub="grp"],.setup[data-cur="amc"] .sub[data-sub="amc"],.setup[data-cur="fs"] .sub[data-sub="fs"],.setup[data-cur="cols"] .sub[data-sub="cols"]{display:flex}
+.setup .cfgact{display:none}
+.setup[data-cur="grp"] .cfgact,.setup[data-cur="amc"] .cfgact,.setup[data-cur="fs"] .cfgact,.setup[data-cur="cols"] .cfgact{display:flex}
+.setup .sub > h3:first-child{margin-top:0;font-size:18px}
+.setup-body > #cfgmsg{min-height:0}
+.subs{margin:2px 0 6px 17px;padding-left:14px;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+.sb{font:inherit;font-size:14px;text-align:left;border:0;background:none;color:var(--muted);padding:4px 10px;border-radius:10px;cursor:pointer}
+.sb:hover{background:var(--surface);color:var(--ink)}
+.sb[aria-current="true"]{color:var(--accent-deep);font-weight:600;background:var(--accent-soft)}
+.sb:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:900px){.subs{display:contents}.sb{flex:none;white-space:nowrap;min-height:42px;border-radius:999px;padding:4px 14px;background:var(--surface)}.sb[aria-current="true"]{background:var(--accent-soft)}}
 </style>
 
 <div class="wrap">
@@ -382,7 +396,9 @@ footer{color:var(--muted);font-size:12.5px;display:grid;gap:4px;padding:0 8px}
     <summary><span class="sumt">ข้อมูล &amp; ตั้งค่า</span> <span id="srcinfo" class="note"></span></summary>
     <div class="setup-body">
       <div class="note" id="cfgsrc"></div>
-      <h3>1. อัปโหลดข้อมูลเดือนใหม่</h3>
+      <span id="cfgmsg" class="note" role="status"></span>
+      <div class="sub" data-sub="up">
+      <h3>อัปโหลดข้อมูลเดือนใหม่</h3>
       <p class="note">เลือกไฟล์ที่ export มาได้เลย ไฟล์ถูกอ่านในเบราว์เซอร์เครื่องนี้เท่านั้น ไม่ถูกส่งไปที่ไหน</p>
       <div class="uprow">
         <label class="filebtn">เลือก Source.xlsx (หลายเดือนได้)<input type="file" id="fsrc" accept=".xlsx" multiple></label>
@@ -390,6 +406,8 @@ footer{color:var(--muted);font-size:12.5px;display:grid;gap:4px;padding:0 8px}
         <button type="button" class="ghost" id="usesample">ใช้ข้อมูลตัวอย่าง</button>
       </div>
       <div id="warns"></div>
+      </div>
+      <div class="sub" data-sub="hist">
       <h3>ประวัติรายเดือน (ใช้กับ Rank Movers / Early Warning)</h3>
       <p class="note">ทุกครั้งที่อัปโหลด Source.xlsx ระบบจะจำอันดับของเดือนนั้นไว้ในเบราว์เซอร์เครื่องนี้ (ดูเดือนจากช่องวันที่ข้อมูล) หน้าหลักแสดงเดือนล่าสุดเสมอ ควรกด "บันทึกไฟล์ประวัติ" เก็บไว้ทุกเดือน เผื่อเปลี่ยนเครื่องหรือล้างข้อมูลเบราว์เซอร์</p>
       <div class="hchips" id="histlist"></div>
@@ -399,25 +417,33 @@ footer{color:var(--muted);font-size:12.5px;display:grid;gap:4px;padding:0 8px}
         <button type="button" class="ghost" id="histclear">ล้างประวัติทั้งหมด</button>
         <span id="histmsg" class="note" role="status"></span>
       </div>
-      <h3>2. กลุ่มและ Benchmark</h3>
+      </div>
+      <div class="sub" data-sub="grp">
+      <h3>กลุ่มและ Benchmark</h3>
       <div class="scroll"><table class="cfgt" id="cfg-groups"></table></div>
       <button type="button" class="ghost" id="addg">+ เพิ่มกลุ่ม</button>
-      <h3>3. บลจ. (เรียงตามอันดับ AUM)</h3>
+      </div>
+      <div class="sub" data-sub="amc">
+      <h3>บลจ. (เรียงตามอันดับ AUM)</h3>
       <div class="scroll"><table class="cfgt" id="cfg-amcs"></table></div>
       <button type="button" class="ghost" id="adda">+ เพิ่ม บลจ.</button>
       <h3 style="margin:12px 0 4px;font-size:14px">บลจ. อื่นที่พบใน Source (ชื่อย่อสร้างให้อัตโนมัติ แก้เองได้)</h3>
       <div class="scroll"><table class="cfgt" id="cfg-short"></table></div>
-      <h3>4. ลิงก์ Fund Factsheet</h3>
+      </div>
+      <div class="sub" data-sub="fs">
+      <h3>ลิงก์ Fund Factsheet</h3>
       <div id="cfg-fs"></div>
-      <h3>5. ตำแหน่งข้อมูลในไฟล์</h3>
+      </div>
+      <div class="sub" data-sub="cols">
+      <h3>ตำแหน่งข้อมูลในไฟล์</h3>
       <p class="note">แก้เมื่อรูปแบบไฟล์ที่ export เปลี่ยน เช่น คอลัมน์เลื่อน หรือชื่อชีตเปลี่ยน</p>
       <div id="cfg-cols"></div>
-      <div class="btnrow">
+      </div>
+      <div class="btnrow cfgact">
         <button type="button" class="btnx" id="cfgapply">ใช้การตั้งค่า</button>
         <button type="button" class="ghost" id="cfgsave">บันทึกไฟล์ตั้งค่า (peer-ranking-settings.js)</button>
         <label class="filebtn ghost">โหลดไฟล์ตั้งค่า<input type="file" id="cfgload" accept=".json,.js"></label>
         <button type="button" class="ghost" id="cfgreset">คืนค่าเริ่มต้น</button>
-        <span id="cfgmsg" class="note" role="status"></span>
       </div>
     </div>
   </details>
@@ -1723,11 +1749,15 @@ const TAB_ICON = {
   "all": '<path d="M12 4l9 5-9 5-9-5zM3 14l9 5 9-5"/>',
   "setup": '<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>'
 };
+const SUBS = [["up", "อัปโหลดข้อมูล"], ["hist", "ประวัติรายเดือน"], ["grp", "กลุ่มและ Benchmark"], ["amc", "บลจ."], ["fs", "Fund Factsheet"], ["cols", "ตำแหน่งข้อมูลในไฟล์"]];
+S.sub = "up"; try { S.sub = localStorage.getItem("ktam-sub") || "up"; } catch (e) {}
+if (!SUBS.some(x => x[0] === S.sub)) S.sub = "up";
 const DEF_TAB = "p-overview";
 S.tab = DEF_TAB; try { S.tab = localStorage.getItem("ktam-tab") || DEF_TAB; } catch (e) {}
 function tabsUI() {
   if ((S.tab === "p-cmp" && !S.cmpOn) || !TABS.some(t => t[0] === S.tab)) S.tab = DEF_TAB;
-  $("tabs").innerHTML = TABS.filter(([id]) => id !== "p-cmp" || S.cmpOn).map(([id, t]) => `<button type="button" class="tab" role="tab" data-tab="${id}" aria-selected="${id === S.tab}"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${TAB_ICON[id] || TAB_ICON.all}</svg></span><span class="tl">${esc(t)}</span></button>`).join("");
+  $("tabs").innerHTML = TABS.filter(([id]) => id !== "p-cmp" || S.cmpOn).map(([id, t]) => `<button type="button" class="tab" role="tab" data-tab="${id}" aria-selected="${id === S.tab}"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${TAB_ICON[id] || TAB_ICON.all}</svg></span><span class="tl">${esc(t)}</span></button>${id === "setup" && S.tab === "setup" ? `<div class="subs" aria-label="หัวข้อการตั้งค่า">${SUBS.map(([k, n]) => `<button type="button" class="sb" data-sub="${k}"${k === S.sub ? ' aria-current="true"' : ""}>${esc(n)}</button>`).join("")}</div>` : ""}`).join("");
+  $("setup").dataset.cur = S.sub;
   for (const [id] of TABS) if (id !== "all") $(id).classList.toggle("tabhide", id === "setup" ? S.tab !== "setup" : (S.tab !== "all" && S.tab !== id));
   // แถบ KPI (กอง/ครึ่งบน/Q1/ชนะ BM) แสดงเฉพาะแท็บภาพรวมกับแสดงทั้งหมด
   document.querySelectorAll("#kpis, .kpitools").forEach(x => x.classList.toggle("tabhide", S.tab !== "all" && S.tab !== "p-overview"));
@@ -1743,7 +1773,8 @@ function setTab(id) {
   const bar = document.querySelector(".bar"), first = [...document.querySelectorAll("section.panel, details.setup")].find(x => !x.hidden && !x.classList.contains("tabhide"));
   if (first) { const top = first.getBoundingClientRect().top + scrollY - (bar.offsetHeight || $("tabs").offsetHeight) - 12; if (scrollY > top) scrollTo({top}); }
 }
-$("tabs").addEventListener("click", e => { const b = e.target.closest("[data-tab]"); if (b) setTab(b.dataset.tab); });
+$("tabs").addEventListener("click", e => { const sb = e.target.closest("[data-sub]"); if (sb) { S.sub = sb.dataset.sub; try { localStorage.setItem("ktam-sub", S.sub); } catch (x) {} tabsUI(); const bar = document.querySelector(".bar"); const top = $("setup").getBoundingClientRect().top + scrollY - ((bar && bar.offsetHeight) || 0) - 12; if (scrollY > top) scrollTo({top}); return; }
+  const b = e.target.closest("[data-tab]"); if (b) setTab(b.dataset.tab); });
 function render() { tabsUI(); asof(); controls(); kpis(); amcTable(); strength(); compare(); overview(); scorecard(); heat(); detail(); riskret(); movers(); topf(); sankeyAll(); flowTab(); histList(); pptUI(); fsum(); }
 // ---------- data & settings panel ----------
 let DRAFT = null;
