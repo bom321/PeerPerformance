@@ -347,6 +347,11 @@ footer{color:var(--muted);font-size:12.5px;display:grid;gap:4px;padding:0 8px}
   .menu .tab .ti{width:32px;height:32px}
 }
 @media (max-height:520px) and (orientation:landscape) and (max-width:1100px){.mainc{gap:12px}.menu{margin:0 -24px;padding:4px 24px}}
+
+/* settings is now its own menu page: always open, no +/- toggle */
+.setup summary{pointer-events:none;cursor:default}
+.setup summary::before{display:none}
+.setup summary .sumt{font-size:22px;letter-spacing:-.01em}
 </style>
 
 <div class="wrap">
@@ -373,7 +378,7 @@ footer{color:var(--muted);font-size:12.5px;display:grid;gap:4px;padding:0 8px}
   </div>
 
 
-  <details class="panel setup" id="setup">
+  <details class="panel setup" id="setup" open>
     <summary><span class="sumt">ข้อมูล &amp; ตั้งค่า</span> <span id="srcinfo" class="note"></span></summary>
     <div class="setup-body">
       <div class="note" id="cfgsrc"></div>
@@ -1702,7 +1707,7 @@ $("fbtn").addEventListener("click", () => { const o = document.querySelector(".b
 const fsum = () => { $("fsum").textContent = `${S.amc}${S.cmpOn ? " vs " + (S.cb || "") : ""} · ${S.p} · ${S.cat}`; };
 
 // ---------- tabs: one section at a time (or all) ----------
-const TABS = [["p-overview", "ภาพรวม"], ["p-score", "Scorecard"], ["p-heat", "Heatmap"], ["p-detail", "รายละเอียดกลุ่ม"], ["p-risk", "ผลตอบแทน vs ความเสี่ยง"], ["p-move", "Rank Movers & Early Warning"], ["p-amc", "เทียบ บลจ."], ["p-strength", "จุดเด่น บลจ."], ["p-cmp", "เทียบ 2 บลจ."], ["p-top", "กองทุนเด่นรายกลุ่ม"], ["p-flow", "เงินไหล (จำลอง)"], ["all", "แสดงทั้งหมด"]];
+const TABS = [["p-overview", "ภาพรวม"], ["p-score", "Scorecard"], ["p-heat", "Heatmap"], ["p-detail", "รายละเอียดกลุ่ม"], ["p-risk", "ผลตอบแทน vs ความเสี่ยง"], ["p-move", "Rank Movers & Early Warning"], ["p-amc", "เทียบ บลจ."], ["p-strength", "จุดเด่น บลจ."], ["p-cmp", "เทียบ 2 บลจ."], ["p-top", "กองทุนเด่นรายกลุ่ม"], ["p-flow", "เงินไหล (จำลอง)"], ["all", "แสดงทั้งหมด"], ["setup", "ตั้งค่า"]];
 const TAB_ICON = {
   "p-overview": '<path d="M6 20V11M12 20V5M18 20v-6"/>',
   "p-score": '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 14l2 2 4-4"/>',
@@ -1715,14 +1720,15 @@ const TAB_ICON = {
   "p-cmp": '<path d="M4 8h15l-4-4M20 16H5l4 4"/>',
   "p-top": '<path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H5v2a3 3 0 0 0 3 3M16 6h3v2a3 3 0 0 1-3 3M12 13v4M9 20h6"/>',
   "p-flow": '<path d="M3 8c3-4 6 4 9 0s6 4 9 0M3 16c3-4 6 4 9 0s6 4 9 0"/>',
-  "all": '<path d="M12 4l9 5-9 5-9-5zM3 14l9 5 9-5"/>'
+  "all": '<path d="M12 4l9 5-9 5-9-5zM3 14l9 5 9-5"/>',
+  "setup": '<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>'
 };
 const DEF_TAB = "p-overview";
 S.tab = DEF_TAB; try { S.tab = localStorage.getItem("ktam-tab") || DEF_TAB; } catch (e) {}
 function tabsUI() {
   if ((S.tab === "p-cmp" && !S.cmpOn) || !TABS.some(t => t[0] === S.tab)) S.tab = DEF_TAB;
   $("tabs").innerHTML = TABS.filter(([id]) => id !== "p-cmp" || S.cmpOn).map(([id, t]) => `<button type="button" class="tab" role="tab" data-tab="${id}" aria-selected="${id === S.tab}"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${TAB_ICON[id] || TAB_ICON.all}</svg></span><span class="tl">${esc(t)}</span></button>`).join("");
-  for (const [id] of TABS) if (id !== "all") $(id).classList.toggle("tabhide", S.tab !== "all" && S.tab !== id);
+  for (const [id] of TABS) if (id !== "all") $(id).classList.toggle("tabhide", id === "setup" ? S.tab !== "setup" : (S.tab !== "all" && S.tab !== id));
   // แถบ KPI (กอง/ครึ่งบน/Q1/ชนะ BM) แสดงเฉพาะแท็บภาพรวมกับแสดงทั้งหมด
   document.querySelectorAll("#kpis, .kpitools").forEach(x => x.classList.toggle("tabhide", S.tab !== "all" && S.tab !== "p-overview"));
 }
@@ -1734,7 +1740,7 @@ function tabsUI() {
     if (Math.abs(d) > 8) last = y; }); }, {passive: true}); })();
 function setTab(id) {
   S.tab = id; try { localStorage.setItem("ktam-tab", id); } catch (e) {} tabsUI();
-  const bar = document.querySelector(".bar"), first = [...document.querySelectorAll("section.panel")].find(x => !x.hidden && !x.classList.contains("tabhide"));
+  const bar = document.querySelector(".bar"), first = [...document.querySelectorAll("section.panel, details.setup")].find(x => !x.hidden && !x.classList.contains("tabhide"));
   if (first) { const top = first.getBoundingClientRect().top + scrollY - (bar.offsetHeight || $("tabs").offsetHeight) - 12; if (scrollY > top) scrollTo({top}); }
 }
 $("tabs").addEventListener("click", e => { const b = e.target.closest("[data-tab]"); if (b) setTab(b.dataset.tab); });
@@ -1791,6 +1797,7 @@ function renderSetup(from) {
   srcInfo();
 }
 const setupBox = $("setup");
+setupBox.addEventListener("toggle", () => { if (!setupBox.open) setupBox.open = true; });
 setupBox.addEventListener("input", e => { const ax = e.target.dataset && e.target.dataset.aumx; if (ax != null) { DRAFT.aumx = DRAFT.aumx || {}; if (e.target.value !== "") DRAFT.aumx[ax.trim()] = +e.target.value; else delete DRAFT.aumx[ax.trim()]; $("cfgmsg").textContent = "มีการแก้ไขที่ยังไม่ได้ใช้"; return; } const sn = e.target.dataset && e.target.dataset.short; if (sn != null) { DRAFT.short = DRAFT.short || {}; const v = e.target.value.trim(); if (v) DRAFT.short[sn.trim()] = v; else delete DRAFT.short[sn.trim()]; $("cfgmsg").textContent = "มีการแก้ไขที่ยังไม่ได้ใช้"; return; } const p = e.target.dataset && e.target.dataset.path; if (!p) return; setPath(DRAFT, p, e.target.type === "number" ? +e.target.value : e.target.value); $("cfgmsg").textContent = "มีการแก้ไขที่ยังไม่ได้ใช้"; });
 setupBox.addEventListener("change", e => { const p = e.target.dataset && e.target.dataset.path; if (p && e.target.tagName === "SELECT") { setPath(DRAFT, p, e.target.value); $("cfgmsg").textContent = "มีการแก้ไขที่ยังไม่ได้ใช้"; } });
 setupBox.addEventListener("click", e => {
