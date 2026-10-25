@@ -394,11 +394,29 @@ footer{color:var(--muted);font-size:12.5px;display:grid;gap:4px;padding:0 8px}
 
 .av{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--bg);overflow:hidden;vertical-align:middle;margin-right:8px;flex:none;font-size:10px;font-weight:700;color:var(--muted)}
 .av img{width:100%;height:100%;display:block}
+
+/* collapsible sidebar (desktop): collapsed = icons only */
+.sidetog{display:inline-flex;align-items:center;gap:10px;font:inherit;font-size:13px;color:var(--muted);background:none;border:0;border-radius:999px;padding:4px 12px 4px 5px;cursor:pointer;text-align:left}
+.sidetog:hover{background:var(--surface);color:var(--ink)}
+.sidetog .ti{flex:none;width:36px;height:36px;border-radius:50%;background:var(--surface);display:grid;place-items:center}
+.sidetog svg{width:18px;height:18px;transition:transform .2s}
+.sidetog:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (min-width:901px){
+  .wrap.sidemin{grid-template-columns:56px minmax(0,1fr);column-gap:22px}
+  .wrap.sidemin .side{align-items:center;gap:12px;overflow-x:hidden}
+  .wrap.sidemin .brand > div,.wrap.sidemin .menu .tab .tl,.wrap.sidemin .subs,.wrap.sidemin .sidetog .stx{display:none}
+  .wrap.sidemin .brand{gap:0}
+  .wrap.sidemin .menu .tab{width:auto;padding:5px;gap:0}
+  .wrap.sidemin .sidetog{padding:5px;gap:0}
+  .wrap.sidemin .sidetog svg{transform:rotate(180deg)}
+}
+@media (max-width:900px){.sidetog{display:none}}
 </style>
 
-<div class="wrap">
+<div class="wrap" id="wrapm">
   <aside class="side">
   <div class="brand"><span class="logo" aria-hidden="true">P</span><div><b>Peer Ranking</b><span class="s">Performance for IC</span></div></div>
+    <button type="button" class="sidetog" id="sidetog" aria-controls="tabs" aria-expanded="true" title="ย่อ/ขยายเมนู"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></span><span class="stx">ย่อเมนู</span></button>
     <nav class="menu" id="tabs" role="tablist" aria-orientation="vertical" aria-label="ส่วนของรายงาน"></nav>
   </aside>
   <div class="mainc">
@@ -1790,9 +1808,13 @@ S.sub = "up"; try { S.sub = localStorage.getItem("myam-sub") || "up"; } catch (e
 if (!SUBS.some(x => x[0] === S.sub)) S.sub = "up";
 const DEF_TAB = "p-overview";
 S.tab = DEF_TAB; try { S.tab = localStorage.getItem("myam-tab") || DEF_TAB; } catch (e) {}
+(() => { const w = document.getElementById("wrapm"), b = document.getElementById("sidetog"); let on = false;
+  try { on = localStorage.getItem("myam-sidemin") === "1"; } catch (e) {}
+  const set = v => { on = v; w.classList.toggle("sidemin", v); b.setAttribute("aria-expanded", String(!v)); b.title = v ? "ขยายเมนู" : "ย่อเมนู"; try { localStorage.setItem("myam-sidemin", v ? "1" : "0"); } catch (e) {} };
+  set(on); b.addEventListener("click", () => set(!on)); })();
 function tabsUI() {
   if ((S.tab === "p-cmp" && !S.cmpOn) || !TABS.some(t => t[0] === S.tab)) S.tab = DEF_TAB;
-  $("tabs").innerHTML = TABS.filter(([id]) => id !== "p-cmp" || S.cmpOn).map(([id, t]) => `<button type="button" class="tab" role="tab" data-tab="${id}" aria-selected="${id === S.tab}"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${TAB_ICON[id] || TAB_ICON.all}</svg></span><span class="tl">${esc(t)}</span></button>${id === "setup" && S.tab === "setup" ? `<div class="subs" aria-label="หัวข้อการตั้งค่า">${SUBS.map(([k, n]) => `<button type="button" class="sb" data-sub="${k}"${k === S.sub ? ' aria-current="true"' : ""}>${esc(n)}</button>`).join("")}</div>` : ""}`).join("");
+  $("tabs").innerHTML = TABS.filter(([id]) => id !== "p-cmp" || S.cmpOn).map(([id, t]) => `<button type="button" class="tab" role="tab" title="${esc(t)}" data-tab="${id}" aria-selected="${id === S.tab}"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${TAB_ICON[id] || TAB_ICON.all}</svg></span><span class="tl">${esc(t)}</span></button>${id === "setup" && S.tab === "setup" ? `<div class="subs" aria-label="หัวข้อการตั้งค่า">${SUBS.map(([k, n]) => `<button type="button" class="sb" data-sub="${k}"${k === S.sub ? ' aria-current="true"' : ""}>${esc(n)}</button>`).join("")}</div>` : ""}`).join("");
   $("setup").dataset.cur = S.sub;
   for (const [id] of TABS) if (id !== "all") $(id).classList.toggle("tabhide", id === "setup" ? S.tab !== "setup" : (S.tab !== "all" && S.tab !== id));
   // แถบ KPI (กอง/ครึ่งบน/Q1/ชนะ BM) แสดงเฉพาะแท็บภาพรวมกับแสดงทั้งหมด
