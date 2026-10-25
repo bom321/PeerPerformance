@@ -405,18 +405,20 @@ footer{color:var(--muted);font-size:12.5px;display:grid;gap:4px;padding:0 8px}
   .wrap.sidemin{grid-template-columns:56px minmax(0,1fr);column-gap:22px}
   .wrap.sidemin .side{align-items:center;gap:12px;overflow-x:hidden}
   .wrap.sidemin .brand > div,.wrap.sidemin .menu .tab .tl,.wrap.sidemin .subs,.wrap.sidemin .sidetog .stx{display:none}
-  .wrap.sidemin .brand{gap:0}
+  
   .wrap.sidemin .menu .tab{width:auto;padding:5px;gap:0}
   .wrap.sidemin .sidetog{padding:5px;gap:0}
-  .wrap.sidemin .sidetog svg{transform:rotate(180deg)}
+  .wrap.sidemin .sidetog svg{transform:none}
 }
+.brand{width:100%;padding-left:8px}.brand b{white-space:nowrap}.brand .logo{flex:none}.brand .sidetog{margin-left:auto;flex:none;padding:0}
+.brand > div{min-width:0}.brand span.s{font-size:14px}
+@media (min-width:901px){.wrap.sidemin .brand{flex-direction:column;gap:12px;padding-left:0;width:auto}.wrap.sidemin .brand .sidetog{margin-left:0}}
 @media (max-width:900px){.sidetog{display:none}}
 </style>
 
 <div class="wrap" id="wrapm">
   <aside class="side">
-  <div class="brand"><span class="logo" aria-hidden="true">P</span><div><b>Peer Ranking</b><span class="s">Performance for IC</span></div></div>
-    <button type="button" class="sidetog" id="sidetog" aria-controls="tabs" aria-expanded="true" title="ย่อ/ขยายเมนู"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></span><span class="stx">ย่อเมนู</span></button>
+  <div class="brand"><div><b>Performance Analysis</b></div><button type="button" class="sidetog" id="sidetog" aria-controls="tabs" aria-expanded="true" title="ย่อเมนู"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16"/></svg></span></button></div>
     <nav class="menu" id="tabs" role="tablist" aria-orientation="vertical" aria-label="ส่วนของรายงาน"></nav>
   </aside>
   <div class="mainc">
