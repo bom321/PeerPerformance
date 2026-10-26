@@ -645,6 +645,7 @@ footer{color:var(--muted);font-size:12.5px;display:grid;gap:4px;padding:0 8px}
         <label class="filebtn">เลือก ผลตอบแทนของ BM<input type="file" id="fben" accept=".xlsx"></label>
         <button type="button" class="ghost" id="usesample">ใช้ข้อมูลตัวอย่าง</button>
       </div>
+      <p class="note okline" id="upmsg" role="status" hidden></p>
       <div id="warns"></div>
       </div>
       <div class="sub" data-sub="hist">
@@ -2046,7 +2047,8 @@ function srcInfo() {
   $("cfgsrc").innerHTML = EXT_SETTINGS ? `<div class="warnbox" style="background:var(--soft)">ตอนนี้อ่านค่าตั้งค่าและประวัติจากไฟล์ <b>peer-ranking-settings.js</b> ข้างไฟล์ html ที่แก้ในหน้านี้ไม่ได้ทับไฟล์ ถ้าแก้แล้วให้กด "บันทึกไฟล์ตั้งค่า" แล้ววางไฟล์ใหม่ทับ</div>` : `<p class="note">เก็บค่าตั้งค่าไว้ในไฟล์ได้: กด "บันทึกไฟล์ตั้งค่า" แล้ววางไฟล์ <b>peer-ranking-settings.js</b> ไว้โฟลเดอร์เดียวกับไฟล์ html เปิดครั้งหน้าระบบอ่านให้เองโดยไม่ต้องโหลดซ้ำ (ใช้ได้เมื่อเปิดไฟล์ html จากเครื่อง ไม่ใช้กับหน้า artifact บนเว็บ)</p>`;
   const n = D ? D.groups.reduce((s, g) => s + g.funds.length, 0) : 0;
   $("srcinfo").textContent = RAW.sample ? `ใช้ข้อมูลตัวอย่าง ณ ${D ? D.asof : "-"}` : `ใช้${RAW.srcName}${RAW.benName ? " + " + RAW.benName : ""} (ข้อมูล ณ ${D ? D.asof : "-"})`;
-  $("warns").innerHTML = WARN.length ? `<div class="warnbox"><b>ตรวจพบ ${WARN.length} เรื่อง</b><ul>${WARN.map(w => `<li>${esc(w)}</li>`).join("")}</ul></div>` : `<p class="note okline">อ่านข้อมูลครบ ${D ? D.groups.length : 0} กลุ่ม · ${n} กองทุนของ ${D ? D.amcs.length : 0} บลจ.</p>`;
+  const stLine = (ok, txt) => `<p class="note ${ok ? "okline" : ""}">${ok ? "✓" : "–"} ${txt}</p>`;
+  $("warns").innerHTML = stLine(!!RAW.src, RAW.src ? `ไฟล์ผลตอบแทนกองทุน: อ่านข้อมูลครบ ${D ? D.groups.length : 0} กลุ่ม · ${n} กองทุนของ ${D ? D.amcs.length : 0} บลจ.` : "ไฟล์ผลตอบแทนกองทุน: ยังไม่ได้อัปโหลด") + stLine(!!RAW.ben, RAW.ben ? `ผลตอบแทนของ BM: อ่านข้อมูลครบ ${BENCHNAMES.length} ดัชนี` : "ผลตอบแทนของ BM: ยังไม่ได้อัปโหลด") + (WARN.length ? `<div class="warnbox"><b>ตรวจพบ ${WARN.length} เรื่อง</b><ul>${WARN.map(w => `<li>${esc(w)}</li>`).join("")}</ul></div>` : "");
 }
 const inp = (path, val, w, type = "text") => `<input type="${type}" data-path="${path}" value="${esc(val ?? "")}" style="width:${w}" aria-label="${path}">`;
 function renderSetup(from) {
@@ -2117,7 +2119,7 @@ $("cfgload").addEventListener("change", async e => { const f = e.target.files[0]
     const m = j.history && j.history.months; if (m && typeof m === "object") { for (const [k, v] of Object.entries(m)) if (/^\d{4}-\d{2}$/.test(k) && v && Array.isArray(v.groups)) HIST[k] = v; saveHist(); }
     applyCfg(c, `โหลด ${f.name} แล้ว`); } catch (x) { $("cfgmsg").textContent = "ไฟล์ตั้งค่าไม่ถูกต้อง"; } e.target.value = ""; });
 async function loadUpload(file) {
-  $("cfgmsg").textContent = "กำลังอ่านไฟล์...";
+  $("upmsg").hidden = false; $("upmsg").textContent = "กำลังอ่านไฟล์...";
   try {
     const sh = await readXlsx(await file.arrayBuffer());
     let note = `อ่าน${sh[CFG.bench.sheet] ? "ผลตอบแทนของ BM" : "ไฟล์ผลตอบแทนกองทุน"} แล้ว`;
@@ -2128,8 +2130,8 @@ async function loadUpload(file) {
       if (!D || !ok || dnum(r.d.asof) >= dnum(D.asof)) { RAW.src = sh; RAW.srcName = "ไฟล์ผลตอบแทนกองทุน"; RAW.sample = false; }
       else note = `เก็บไฟล์ผลตอบแทนกองทุนเป็นประวัติเดือน ${mlabel(mkey(r.d.asof))} แล้ว (หน้าหลักยังแสดงเดือนล่าสุด)`;
     }
-    rebuild(); render(); renderSetup(); $("cfgmsg").textContent = note;
-  } catch (x) { $("cfgmsg").textContent = `อ่านไฟล์ไม่ได้: ${x.message || "รูปแบบไฟล์ไม่ถูกต้อง"}`; }
+    rebuild(); render(); renderSetup(); $("upmsg").hidden = false; $("upmsg").textContent = "✓ " + note;
+  } catch (x) { $("upmsg").hidden = false; $("upmsg").textContent = `อ่านไฟล์ไม่ได้: ${x.message || "รูปแบบไฟล์ไม่ถูกต้อง"}`; }
 }
 for (const id of ["fsrc", "fben"]) $(id).addEventListener("change", async e => { for (const f of e.target.files) await loadUpload(f); e.target.value = ""; });
 $("histlist").addEventListener("click", e => { const b = e.target.closest("[data-hdel]"); if (!b) return; delete HIST[b.dataset.hdel]; saveHist(); render(); $("histmsg").textContent = `ลบ ${mlabel(b.dataset.hdel)} แล้ว`; });
