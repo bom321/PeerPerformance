@@ -468,7 +468,7 @@ footer{color:var(--muted);font-size:12.5px;display:grid;gap:4px;padding:0 8px}
     <div class="helpbox">
       <details class="hp" open><summary>เริ่มต้น: ใช้ประจำทุกเดือน</summary><div class="hb">
         <ol>
-          <li>ไปที่ ตั้งค่า → อัปโหลดข้อมูล แล้วเลือก Source.xlsx และ IC Benchmark.xlsx ของเดือนนั้น (ชื่อไฟล์/ชีต/คอลัมน์คงเดิม)</li>
+          <li>ไปที่ ตั้งค่า → อัปโหลดข้อมูล แล้วเลือก ไฟล์ผลตอบแทนกองทุน และ ผลตอบแทนของ BM ของเดือนนั้น (ชื่อไฟล์/ชีต/คอลัมน์คงเดิม)</li>
           <li>เลือก บลจ. ช่วงเวลา และกลุ่ม ที่แถบตัวกรองด้านบน ทุกหน้าจะเปลี่ยนตาม (ยกเว้นบางหน้าที่ระบุไว้)</li>
           <li>ไปที่ ตั้งค่า → ประวัติรายเดือน กด "บันทึกเดือนที่แสดงอยู่" เก็บไฟล์ประวัติของเดือนนั้นไว้ (เดือนละ 1 ไฟล์)</li>
           <li>หน้าหลักแสดงเดือนล่าสุดเสมอ ถ้าอัปโหลดไฟล์เดือนเก่ากว่า ระบบเก็บเป็นประวัติให้โดยไม่เปลี่ยนหน้าหลัก</li>
@@ -641,15 +641,15 @@ footer{color:var(--muted);font-size:12.5px;display:grid;gap:4px;padding:0 8px}
       <h3>อัปโหลดข้อมูลเดือนใหม่</h3>
       <p class="note">เลือกไฟล์ที่ export มาได้เลย ไฟล์ถูกอ่านในเบราว์เซอร์เครื่องนี้เท่านั้น ไม่ถูกส่งไปที่ไหน</p>
       <div class="uprow">
-        <label class="filebtn">เลือก Source.xlsx (หลายเดือนได้)<input type="file" id="fsrc" accept=".xlsx" multiple></label>
-        <label class="filebtn">เลือก IC Benchmark.xlsx<input type="file" id="fben" accept=".xlsx"></label>
+        <label class="filebtn">เลือก ไฟล์ผลตอบแทนกองทุน (หลายเดือนได้)<input type="file" id="fsrc" accept=".xlsx" multiple></label>
+        <label class="filebtn">เลือก ผลตอบแทนของ BM<input type="file" id="fben" accept=".xlsx"></label>
         <button type="button" class="ghost" id="usesample">ใช้ข้อมูลตัวอย่าง</button>
       </div>
       <div id="warns"></div>
       </div>
       <div class="sub" data-sub="hist">
       <h3>ประวัติรายเดือน (ใช้กับ Rank Movers / Early Warning)</h3>
-      <p class="note">ทุกครั้งที่อัปโหลด Source.xlsx ระบบจะจำอันดับของเดือนนั้นไว้ในเบราว์เซอร์เครื่องนี้ (ดูเดือนจากช่องวันที่ข้อมูล) หน้าหลักแสดงเดือนล่าสุดเสมอ ประวัติบันทึกเป็นไฟล์แยกรายเดือน เดือนละ 1 ไฟล์ มีทั้งอันดับกองทุนและ Benchmark/ค่าเฉลี่ยของเดือนนั้นรวมกัน (ชื่อ peer-ranking-history YYYY-MM.json) ควรกด "บันทึกเดือนที่แสดงอยู่" เก็บไว้ทุกเดือน เผื่อเปลี่ยนเครื่องหรือล้างข้อมูลเบราว์เซอร์ เวลาโหลดเลือกหลายไฟล์พร้อมกันได้ หรือกด "อ่านจากโฟลเดอร์ประวัติ" เลือกโฟลเดอร์ที่เก็บไฟล์ประวัติครั้งเดียว (Chrome/Edge) ครั้งต่อไปที่เปิดไฟล์ ระบบอ่านทุกเดือนในโฟลเดอร์นั้นให้อัตโนมัติ (ถ้าเบราว์เซอร์ถามสิทธิ์ ให้กดอนุญาต) และปุ่มบันทึกจะเขียนไฟล์ลงโฟลเดอร์นั้นเอง</p>
+      <p class="note">ทุกครั้งที่อัปโหลด ไฟล์ผลตอบแทนกองทุน ระบบจะจำอันดับของเดือนนั้นไว้ในเบราว์เซอร์เครื่องนี้ (ดูเดือนจากช่องวันที่ข้อมูล) หน้าหลักแสดงเดือนล่าสุดเสมอ ประวัติบันทึกเป็นไฟล์แยกรายเดือน เดือนละ 1 ไฟล์ มีทั้งอันดับกองทุนและ Benchmark/ค่าเฉลี่ยของเดือนนั้นรวมกัน (ชื่อ peer-ranking-history YYYY-MM.json) ควรกด "บันทึกเดือนที่แสดงอยู่" เก็บไว้ทุกเดือน เผื่อเปลี่ยนเครื่องหรือล้างข้อมูลเบราว์เซอร์ เวลาโหลดเลือกหลายไฟล์พร้อมกันได้ หรือกด "อ่านจากโฟลเดอร์ประวัติ" เลือกโฟลเดอร์ที่เก็บไฟล์ประวัติครั้งเดียว (Chrome/Edge) ครั้งต่อไปที่เปิดไฟล์ ระบบอ่านทุกเดือนในโฟลเดอร์นั้นให้อัตโนมัติ (ถ้าเบราว์เซอร์ถามสิทธิ์ ให้กดอนุญาต) และปุ่มบันทึกจะเขียนไฟล์ลงโฟลเดอร์นั้นเอง</p>
       <div class="hchips" id="histlist"></div>
       <p class="note" id="histdirname" style="margin:6px 0 0"></p>
       <div class="btnrow">
@@ -673,7 +673,7 @@ footer{color:var(--muted);font-size:12.5px;display:grid;gap:4px;padding:0 8px}
       <h3>บลจ. (เรียงตามอันดับ AUM)</h3>
       <div class="scroll"><table class="cfgt" id="cfg-amcs"></table></div>
       <button type="button" class="ghost" id="adda">+ เพิ่ม บลจ.</button>
-      <h3 style="margin:12px 0 4px;font-size:14px">บลจ. อื่นที่พบใน Source (ชื่อย่อสร้างให้อัตโนมัติ แก้เองได้)</h3>
+      <h3 style="margin:12px 0 4px;font-size:14px">บลจ. อื่นที่พบในไฟล์ผลตอบแทนกองทุน (ชื่อย่อสร้างให้อัตโนมัติ แก้เองได้)</h3>
       <div class="scroll"><table class="cfgt" id="cfg-short"></table></div>
       </div>
       <div class="sub" data-sub="fs">
@@ -964,9 +964,9 @@ function asofText(v) {
   if (typeof v === "number") { const d = new Date(Math.round((v - 25569) * 864e5)); return `${String(d.getUTCDate()).padStart(2, "0")}/${String(d.getUTCMonth() + 1).padStart(2, "0")}/${d.getUTCFullYear()}`; }
   const m = /(\d{1,2})\/(\d{1,2})\/(\d{4})/.exec(String(v || "")); return m ? `${m[1].padStart(2, "0")}/${m[2].padStart(2, "0")}/${m[3]}` : null;
 }
-// ชื่อ บลจ. ใน Source ทั้งหมดที่นับเป็น บลจ. เดียวกัน: ชื่อหลัก + ชื่อเดิม/ชื่ออื่น (alias คั่นด้วย ; หรือขึ้นบรรทัดใหม่)
+// ชื่อ บลจ. ในไฟล์ผลตอบแทนกองทุน ทั้งหมดที่นับเป็น บลจ. เดียวกัน: ชื่อหลัก + ชื่อเดิม/ชื่ออื่น (alias คั่นด้วย ; หรือขึ้นบรรทัดใหม่)
 const firmNames = a => [...new Set([a.firm, ...String(a.alias || "").split(/[;\n]/)].map(x => String(x || "").trim()).filter(Boolean))];
-// ชื่อย่ออัตโนมัติจากชื่อเต็มใน Source: ตัดวงเล็บและคำท้าย เช่น Asset Management / Co., Ltd. / PLC
+// ชื่อย่ออัตโนมัติจากชื่อเต็มในไฟล์ผลตอบแทนกองทุน: ตัดวงเล็บและคำท้าย เช่น Asset Management / Co., Ltd. / PLC
 const autoShort = n => { const t = String(n || "").replace(/\([^)]*\)/g, " ").replace(/\b(asset\s+management|fund\s+management|investment\s+management|company\s+limited|co\.?\s*,?\s*ltd\.?|limited|ltd\.?|plc\.?|public|thailand)\b/gi, " ").replace(/[,.]+/g, " ").replace(/\s+/g, " ").trim(); return t || String(n || "").trim(); };
 function buildData(src, ben, cfg) {
   const warn = [], C = {firm: colIdx(cfg.cols.firm), code: colIdx(cfg.cols.code), name: colIdx(cfg.cols.name), label: colIdx(cfg.cols.label)}, R0 = cfg.firstRow - 1, O = cfg.offsets;
@@ -974,21 +974,21 @@ function buildData(src, ben, cfg) {
   // benchmark
   const bench = {}, bnames = [];
   const bs = ben && ben[cfg.bench.sheet];
-  if (!ben) warn.push("ยังไม่มีไฟล์ IC Benchmark: ส่วนที่เทียบ Benchmark จะว่าง");
-  else if (!bs) warn.push(`ไม่พบชีต "${cfg.bench.sheet}" ในไฟล์ IC Benchmark`);
+  if (!ben) warn.push("ยังไม่มีไฟล์ผลตอบแทนของ BM: ส่วนที่เทียบ Benchmark จะว่าง");
+  else if (!bs) warn.push(`ไม่พบชีต "${cfg.bench.sheet}" ในไฟล์ผลตอบแทนของ BM`);
   else for (let r = cfg.bench.firstRow - 1; r < bs.length; r++) { const row = bs[r] || [], nm = row[colIdx(cfg.bench.nameCol)]; if (typeof nm !== "string" || !nm.trim()) continue;
     bnames.push(nm); bench[nm] = {}; for (const p of cfg.periods) bench[nm][p.p] = num(row[colIdx(cfg.bench.cols[p.p])]); }
   const firms = {}, groups = [], hdrBad = new Set();
   let asof = null;
   for (const gc of cfg.groups) {
     const rows = src[gc.sheet];
-    if (!rows) { warn.push(`ไม่พบชีต "${gc.sheet}" ในไฟล์ Source (กลุ่ม ${gc.title} ถูกข้าม)`); continue; }
+    if (!rows) { warn.push(`ไม่พบชีต "${gc.sheet}" ในไฟล์ผลตอบแทนกองทุน (กลุ่ม ${gc.title} ถูกข้าม)`); continue; }
     if (!asof) { const ac = /^([A-Z]+)(\d+)$/.exec(String(cfg.asofCell).toUpperCase().trim()); if (ac) asof = asofText((rows[+ac[2] - 1] || [])[colIdx(ac[1])]); }
     for (const p of cfg.periods) { const h = (rows[cfg.headerRow - 1] || [])[colIdx(p.col)];
       if (p.label && String(h ?? "").trim() !== p.label) hdrBad.add(`ช่วง ${p.p}: คอลัมน์ ${p.col} แถว ${cfg.headerRow} คือ "${h ?? "(ว่าง)"}" ไม่ใช่ "${p.label}" ตรวจตำแหน่งคอลัมน์ในหน้าตั้งค่า`); }
     const g = {cat: gc.cat, sheet: gc.sheet, title: gc.title, bm: gc.bm && gc.showBm !== false ? (gc.bml || gc.bm) : null, bmName: gc.bm || null,
       N: {}, Nsh: {}, Nir: {}, avg: {}, max: {}, min: {}, bmRet: {}, peer: {}, funds: []};
-    if (g.bm && ben && bs && !bench[gc.bm]) warn.push(`ไม่พบ Benchmark "${gc.bm}" ในไฟล์ IC Benchmark (กลุ่ม ${gc.title})`);
+    if (g.bm && ben && bs && !bench[gc.bm]) warn.push(`ไม่พบ Benchmark "${gc.bm}" ในไฟล์ผลตอบแทนของ BM (กลุ่ม ${gc.title})`);
     const data = rows.slice(R0);
     for (const p of cfg.periods) {
       const ri = colIdx(p.col), rk = ri + O.rank;
@@ -1018,8 +1018,8 @@ function buildData(src, ben, cfg) {
     groups.push(g);
   }
   warn.push(...hdrBad);
-  for (const a of cfg.amcs) if (!firmNames(a).some(n => firms[n])) warn.push(`ไม่พบชื่อ บลจ. "${a.firm}" (${a.code}) ในไฟล์ Source ถ้าเปลี่ยนชื่อ ให้ใส่ชื่อใหม่ในช่อง "ชื่อเดิม/ชื่ออื่น" ในหน้าตั้งค่า`);
-  // บลจ. อื่นที่พบใน Source แต่ไม่ได้ตั้งค่าไว้: ใส่ต่อท้ายรายการ เรียงตามจำนวนกองทุน
+  for (const a of cfg.amcs) if (!firmNames(a).some(n => firms[n])) warn.push(`ไม่พบชื่อ บลจ. "${a.firm}" (${a.code}) ในไฟล์ผลตอบแทนกองทุน ถ้าเปลี่ยนชื่อ ให้ใส่ชื่อใหม่ในช่อง "ชื่อเดิม/ชื่ออื่น" ในหน้าตั้งค่า`);
+  // บลจ. อื่นที่พบในไฟล์ผลตอบแทนกองทุน แต่ไม่ได้ตั้งค่าไว้: ใส่ต่อท้ายรายการ เรียงตามจำนวนกองทุน
   const known = new Set(cfg.amcs.map(a => a.code)), extra = [];
   for (const g of groups) for (const f of g.funds) if (!known.has(f.a) && !extra.includes(f.a)) extra.push(f.a);
   const cnt = {}; for (const g of groups) for (const f of g.funds) cnt[f.a] = (cnt[f.a] || 0) + 1;
@@ -1049,7 +1049,7 @@ async function saveFile(name, data) {
 
 // ---------- monthly history (for Rank Movers / Early Warning) ----------
 const HIST_KEY = "ktam-dash-hist";
-let HIST = {};   // "YYYY-MM" -> compact snapshot of one Source file
+let HIST = {};   // "YYYY-MM" -> compact snapshot of one monthly return file
 try { const h = JSON.parse(localStorage.getItem(HIST_KEY) || "{}"); if (h && typeof h === "object") HIST = h; } catch (e) {}
 try { const m = window.PEER_SETTINGS && window.PEER_SETTINGS.history && window.PEER_SETTINGS.history.months; if (m && typeof m === "object") for (const [k, v] of Object.entries(m)) if (/^\d{4}-\d{2}$/.test(k) && v && Array.isArray(v.groups)) HIST[k] = v; } catch (e) {}
 const mkey = asof => { const [d, m, y] = asof.split("/").map(Number); return `${y}-${String(m).padStart(2, "0")}`; };
@@ -1067,7 +1067,7 @@ const save = () => { try { localStorage.setItem("pr-dash", JSON.stringify({p:S.p
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const pct = v => v == null ? "–" : (v >= 0 ? "" : "−") + Math.abs(v).toFixed(2) + "%";
-// ---------- ลิงก์ Fund Factsheet: Source ไม่มี URL จึงสร้างจากแม่แบบที่แก้ได้ในหน้าตั้งค่า ({code} = Fund Code) ----------
+// ---------- ลิงก์ Fund Factsheet: ไฟล์ผลตอบแทนกองทุนไม่มี URL จึงสร้างจากแม่แบบที่แก้ได้ในหน้าตั้งค่า ({code} = Fund Code) ----------
 // ลิงก์ factsheet ฉบับไทย สร้างจากรหัสกอง ตามผลตรวจ 19 ต.ค. 2569 (ดูไฟล์ Factsheet-URL-Pattern-รายบลจ.md) บลจ. ที่ไม่มีในรายการนี้ (ไม่มี) ไม่มีลิงก์ ต้องใส่เองในหน้าตั้งค่า
 // ระดับ: ok = ทดสอบเปิดได้จริงหลายกอง, low = ยืนยันน้อย/มีข้อยกเว้น (เดา), search = ลิงก์ค้นหา Google (UOB และ BBL ลิงก์ไฟล์ตรงชื่อไฟล์ไม่ใช่รหัสกอง/มีโค้ดสุ่ม) ลิงก์รายกองที่ใส่เองในหน้าตั้งค่าจะใช้แทนเสมอ
 const FS_AMC = {
@@ -1140,7 +1140,7 @@ function stats(g) {
 }
 const visible = () => D.groups.map((g, i) => ({g, i})).filter(x => S.cat === "ทั้งหมด" || x.g.cat === S.cat);
 
-// ตัวเลือก บลจ.: เรียงตามชื่อ ต่อท้ายด้วย AUM (ล้านบาท) ที่กรอกไว้ในหน้าตั้งค่า ถ้ายังไม่กรอกแสดงจำนวนกองทุนใน Source แทน (Source ไม่มีข้อมูล AUM)
+// ตัวเลือก บลจ.: เรียงตามชื่อ ต่อท้ายด้วย AUM (ล้านบาท) ที่กรอกไว้ในหน้าตั้งค่า ถ้ายังไม่กรอกแสดงจำนวนกองทุนในไฟล์ผลตอบแทนกองทุน แทน (ไฟล์ผลตอบแทนกองทุนไม่มีข้อมูล AUM)
 function amcOpts(sel) {
   const nf = {}; for (const g of D.groups) for (const f of g.funds) nf[f.a] = (nf[f.a] || 0) + 1;
   const lab = a => { const v = D.aum[a]; return `${a} (${v != null ? Number(v).toLocaleString("en-US", {maximumFractionDigits: 0}) + " ลบ." : (nf[a] || 0) + " กอง"})`; };
@@ -1466,7 +1466,7 @@ async function exportPptx() {
       s.addText(title, txt({x: .5, y: .3, w: backup ? 11.2 : 12.3, h: .7, fontSize: backup ? 20 : 22, bold: true, valign: "top"}));
       s.addText(scope, txt({x: .5, y: 1.0, w: 12.3, h: .3, fontSize: 11, color: XMUT}));
       if (backup) s.addText("BACKUP", txt({x: 11.7, y: .3, w: 1.1, h: .35, fontSize: 10, bold: true, color: XMUT, align: "center", fill: {color: "EEF1EE"}}));
-      s.addText("ที่มา: Source.xlsx, IC Benchmark.xlsx · Top % = อันดับ ÷ จำนวนกองทุนใน peer · Quartile: Q1 = Top 25%", txt({x: .5, y: 7.05, w: 12.3, h: .3, fontSize: 9, color: XMUT})); return s; };
+      s.addText("ที่มา: ไฟล์ผลตอบแทนกองทุน, ผลตอบแทนของ BM · Top % = อันดับ ÷ จำนวนกองทุนใน peer · Quartile: Q1 = Top 25%", txt({x: .5, y: 7.05, w: 12.3, h: .3, fontSize: 9, color: XMUT})); return s; };
     const cell = (v, o = {}) => ({text: String(v), options: txt(Object.assign({fontSize: 10.5}, o))});
     const hdr = arr => arr.map(v => cell(v, {bold: true, fill: {color: "EEF1EE"}, align: "center"}));
     const BORDER = {type: "solid", pt: .5, color: "DDE3DF"};
@@ -1601,7 +1601,7 @@ async function exportPptx() {
   finally { if (prevTheme == null) root.removeAttribute("data-theme"); else root.setAttribute("data-theme", prevTheme); S.g = keep.g; S.view = keep.view; S.cell = keep.cell; render(); btn.disabled = false; }
 }
 $("expbtn").addEventListener("click", exportPptx);
-// ประวัติเก่าอ้างชื่อ บลจ. ตามที่ตั้งค่าไว้ตอนนั้น: ถ้าเก็บชื่อเต็มใน Source ไว้ (fn) ให้จับคู่ใหม่ตามค่าตั้งปัจจุบัน เพื่อให้ผ่านการเปลี่ยนชื่อ/รวมชื่อได้
+// ประวัติเก่าอ้างชื่อ บลจ. ตามที่ตั้งค่าไว้ตอนนั้น: ถ้าเก็บชื่อเต็มในไฟล์ผลตอบแทนกองทุน ไว้ (fn) ให้จับคู่ใหม่ตามค่าตั้งปัจจุบัน เพื่อให้ผ่านการเปลี่ยนชื่อ/รวมชื่อได้
 function amcNow(f) { if (!f.fn) return f.a; const t = CFG.amcs.find(a => firmNames(a).includes(f.fn)); return t ? t.code : (((CFG.short || {})[String(f.fn).trim()]) || autoShort(f.fn) || f.a); }
 function histCalc() {
   const all = {...(RAW.sample ? MOCK_HIST : {}), ...HIST}, cur = mkey(D.asof); all[cur] = snap(D);
@@ -1637,7 +1637,7 @@ const tp = t => Math.max(1, Math.round(t * 100)) + "%";
 function movers() {
   const H = histCalc(); let h = "";
   $("movetag").textContent = `มีข้อมูล ${H.months.length} เดือน: ${H.months.map(mlabel).join(", ")}${RAW.sample ? " (เดือนก่อนหน้าเป็นข้อมูลจำลอง)" : ""}`;
-  const howto = `<br>วิธีเพิ่ม: เปิด "ข้อมูล &amp; ตั้งค่า" ด้านบน แล้วกด "เลือก Source.xlsx" เลือกไฟล์ของเดือนก่อน ๆ (เลือกหลายไฟล์พร้อมกันได้)`;
+  const howto = `<br>วิธีเพิ่ม: เปิด "ข้อมูล &amp; ตั้งค่า" ด้านบน แล้วกด "เลือก ไฟล์ผลตอบแทนกองทุน" เลือกไฟล์ของเดือนก่อน ๆ (เลือกหลายไฟล์พร้อมกันได้)`;
   if (!H.prev) { $("move").innerHTML = `<div class="warnbox">ตอนนี้มีข้อมูลเดือนเดียว (${mlabel(H.cur)}) ต้องมีอย่างน้อย 2 เดือนจึงจะดู Rank Movers ได้ และ 3 เดือนติดกันสำหรับ Early Warning${howto}</div>`; return; }
   const gapNote = H.m1 ? "" : `<div class="warnbox" style="margin-bottom:8px">เดือนก่อนหน้าที่มีคือ ${mlabel(H.prev)} (ไม่ใช่เดือนติดกัน) ผลเทียบอาจห่างกันหลายเดือน</div>`;
   const ytdNote = S.p === "YTD" && H.cur.endsWith("-01") ? `<p class="note" style="margin-bottom:8px">หมายเหตุ: YTD เริ่มนับใหม่ทุกเดือน ม.ค. การเทียบกับ ธ.ค. อาจไม่สะท้อนผลงานจริง ลองเลือกช่วง 1Y</p>` : "";
@@ -1657,7 +1657,7 @@ function movers() {
     arr.map(x => `<tr><td>${fsLink(x)}</td><td class="note">${esc(x.gt)}</td>${three ? `<td class="n">${tp(x.oo.top)}</td>` : ""}<td class="n">${tp(x.o.top)}</td><td class="n dn">${tp(x.top)}</td><td class="n">${x.r}/${x.N}</td></tr>`).join("") + `</tbody></table></div>`;
   h += `<div class="mv-ew"><h3>Early Warning: อยู่ Q4 ติดกัน 3 เดือน${H.warn3 ? ` (${H.warn3.length} กอง)` : ""}</h3>`;
   h += !H.m1 ? `<p class="note">ต้องมีข้อมูล 3 เดือนติดกัน (ตอนนี้เดือนก่อนหน้าไม่ติดกัน)</p>`
-     : H.warn3 ? ew(H.warn3, true) : `<div class="warnbox">ตอนนี้มี 2 เดือนติดกัน ต้องมี 3 เดือนติดกัน (เพิ่ม Source ของ ${mlabel(mkeyOf(midx(H.cur) - 2))}) จึงจะเช็ค Early Warning ได้</div>`;
+     : H.warn3 ? ew(H.warn3, true) : `<div class="warnbox">ตอนนี้มี 2 เดือนติดกัน ต้องมี 3 เดือนติดกัน (เพิ่มไฟล์ผลตอบแทนกองทุนของ ${mlabel(mkeyOf(midx(H.cur) - 2))}) จึงจะเช็ค Early Warning ได้</div>`;
   if (H.m1) h += `<h3 style="margin-top:12px">เริ่มน่าห่วง: อยู่ Q4 ติดกัน 2 เดือนล่าสุด (${H.warn2.length} กอง)</h3>` + ew(H.warn2, false);
   $("move").innerHTML = h + "</div>";
 }
@@ -2052,21 +2052,21 @@ const inp = (path, val, w, type = "text") => `<input type="${type}" data-path="$
 function renderSetup(from) {
   DRAFT = JSON.parse(JSON.stringify(from || CFG));
   const bopts = sel => `<option value="">(ไม่แสดง BM)</option>` + [...new Set([...BENCHNAMES, sel].filter(Boolean))].map(b => `<option ${b === sel ? "selected" : ""}>${esc(b)}</option>`).join("");
-  $("cfg-groups").innerHTML = `<thead><tr><th>กลุ่มใหญ่</th><th>ชีตใน Source</th><th>ชื่อกราฟ</th><th>Benchmark</th><th>ชื่อ BM บนกราฟ</th><th></th></tr></thead><tbody>` +
+  $("cfg-groups").innerHTML = `<thead><tr><th>กลุ่มใหญ่</th><th>ชีตในไฟล์ผลตอบแทนกองทุน</th><th>ชื่อกราฟ</th><th>Benchmark</th><th>ชื่อ BM บนกราฟ</th><th></th></tr></thead><tbody>` +
     DRAFT.groups.map((g, i) => `<tr><td>${inp(`groups.${i}.cat`, g.cat, "110px")}</td><td>${inp(`groups.${i}.sheet`, g.sheet, "170px")}</td><td>${inp(`groups.${i}.title`, g.title, "170px")}</td>
       <td><select data-path="groups.${i}.bm" aria-label="Benchmark">${bopts(g.bm)}</select></td><td>${inp(`groups.${i}.bml`, g.bml, "190px")}</td>
       <td><button type="button" class="mini" data-del="groups.${i}" aria-label="ลบกลุ่ม">ลบ</button></td></tr>`).join("") + "</tbody>";
   const fopts = sel => [...new Set([sel, ...FIRMS].filter(Boolean))].map(f => `<option ${f === sel ? "selected" : ""}>${esc(f)}</option>`).join("");
-  $("cfg-amcs").innerHTML = `<thead><tr><th>อันดับ</th><th>ชื่อย่อ</th><th>ชื่อใน Source (Firm Name)</th><th>ชื่อเดิม/ชื่ออื่น (คั่นด้วย ;)</th><th>AUM (ล้านบาท)</th><th>ลิงก์ Factsheet เฉพาะ บลจ. (ไม่บังคับ)</th><th></th></tr></thead><tbody>` +
+  $("cfg-amcs").innerHTML = `<thead><tr><th>อันดับ</th><th>ชื่อย่อ</th><th>ชื่อในไฟล์ผลตอบแทนกองทุน (Firm Name)</th><th>ชื่อเดิม/ชื่ออื่น (คั่นด้วย ;)</th><th>AUM (ล้านบาท)</th><th>ลิงก์ Factsheet เฉพาะ บลจ. (ไม่บังคับ)</th><th></th></tr></thead><tbody>` +
     DRAFT.amcs.map((a, i) => `<tr><td class="n">${i + 1} <button type="button" class="mini" data-up="${i}" aria-label="เลื่อนขึ้น">▲</button><button type="button" class="mini" data-down="${i}" aria-label="เลื่อนลง">▼</button></td>
       <td>${inp(`amcs.${i}.code`, a.code, "110px")}</td><td><select data-path="amcs.${i}.firm" aria-label="Firm Name">${fopts(a.firm)}</select></td>
       <td>${inp(`amcs.${i}.alias`, a.alias, "260px")}</td><td>${inp(`amcs.${i}.aum`, a.aum, "100px", "number")}</td><td>${inp(`amcs.${i}.fs`, a.fs, "260px")}</td>
       <td><button type="button" class="mini" data-del="amcs.${i}" aria-label="ลบ บลจ.">ลบ</button></td></tr>`).join("") + "</tbody>";
   const named = new Set(DRAFT.amcs.flatMap(firmNames)), others = FIRMS.filter(x => !named.has(x));
-  $("cfg-short").innerHTML = others.length ? `<thead><tr><th>ชื่อใน Source</th><th>ชื่อย่อที่แสดง</th><th>AUM (ล้านบาท)</th></tr></thead><tbody>` + others.map(x => `<tr><td>${esc(x)}</td><td><input type="text" data-short="${esc(x)}" value="${esc((DRAFT.short || {})[x.trim()] || "")}" placeholder="${esc(autoShort(x))}" style="width:180px" aria-label="ชื่อย่อ ${esc(x)}"></td><td><input type="number" data-aumx="${esc(x)}" value="${esc((DRAFT.aumx || {})[x.trim()] ?? "")}" style="width:100px" aria-label="AUM ${esc(x)}"></td></tr>`).join("") + "</tbody>" : "<tbody><tr><td>ไม่มี บลจ. อื่น</td></tr></tbody>";
+  $("cfg-short").innerHTML = others.length ? `<thead><tr><th>ชื่อในไฟล์ผลตอบแทนกองทุน</th><th>ชื่อย่อที่แสดง</th><th>AUM (ล้านบาท)</th></tr></thead><tbody>` + others.map(x => `<tr><td>${esc(x)}</td><td><input type="text" data-short="${esc(x)}" value="${esc((DRAFT.short || {})[x.trim()] || "")}" placeholder="${esc(autoShort(x))}" style="width:180px" aria-label="ชื่อย่อ ${esc(x)}"></td><td><input type="number" data-aumx="${esc(x)}" value="${esc((DRAFT.aumx || {})[x.trim()] ?? "")}" style="width:100px" aria-label="AUM ${esc(x)}"></td></tr>`).join("") + "</tbody>" : "<tbody><tr><td>ไม่มี บลจ. อื่น</td></tr></tbody>";
   const sampleF = (D && D.groups.flatMap(g => g.funds).find(f => f.code)) || {code: "ABC", a: ""}, sf = {...sampleF}, su = fsUrl(sf);
   const lvTxt = {ok: "ทดสอบเปิดได้จริงหลายกอง", low: "ยืนยันน้อย/เดา", search: "ลิงก์ค้นหา Google (ไม่ใช่ไฟล์ตรง)"};
-  $("cfg-fs").innerHTML = `<p class="note">Source.xlsx ไม่มีลิงก์ factsheet ระบบจึงสร้างลิงก์ฉบับไทยจากรหัสกองตามผลตรวจ 19 ต.ค. 2569 บลจ. ที่ไม่มีแม่แบบจะแสดงรหัสกองเป็นตัวหนังสือธรรมดา ไฟล์ส่วนใหญ่ถูกเขียนทับรายเดือน วันที่ข้อมูลในไฟล์อาจต่างกันต่อกอง และรหัสใน Source กับบนเว็บ บลจ. อาจไม่ตรงบางกอง</p>
+  $("cfg-fs").innerHTML = `<p class="note">ไฟล์ผลตอบแทนกองทุน ไม่มีลิงก์ factsheet ระบบจึงสร้างลิงก์ฉบับไทยจากรหัสกองตามผลตรวจ 19 ต.ค. 2569 บลจ. ที่ไม่มีแม่แบบจะแสดงรหัสกองเป็นตัวหนังสือธรรมดา ไฟล์ส่วนใหญ่ถูกเขียนทับรายเดือน วันที่ข้อมูลในไฟล์อาจต่างกันต่อกอง และรหัสในไฟล์ผลตอบแทนกองทุน กับบนเว็บ บลจ. อาจไม่ตรงบางกอง</p>
     <div class="scroll"><table class="cfgt"><thead><tr><th>บลจ.</th><th>สถานะ</th></tr></thead><tbody>${Object.entries(FS_AMC).map(([k, v]) => `<tr><td>${esc(k)}</td><td>${v.lv === "ok" ? "✓" : v.lv === "search" ? "↗" : "?"} ${esc(lvTxt[v.lv])}${v.exc ? " · มีข้อยกเว้นบางรหัส" : ""}</td></tr>`).join("")}<tr><td>บลจ. อื่น (ไม่มี)</td><td>– ไม่มีลิงก์ ใส่เองได้ด้านล่าง</td></tr></tbody></table></div>
     <h4 style="margin:10px 0 4px;font-size:13px">ลิงก์รายกอง (บรรทัดละ 1 กอง: รหัสกอง = ลิงก์) ใช้ก่อนแม่แบบเสมอ</h4>
     <textarea data-path="fsFundText" rows="5" style="width:100%;font-family:var(--f-num);font-size:12px" placeholder="B-TREASURY = https://www.bangkokbank.com/.../xxx_factsheet_th.pdf" aria-label="ลิงก์ factsheet รายกอง">${esc(DRAFT.fsFundText || "")}</textarea>
@@ -2074,7 +2074,7 @@ function renderSetup(from) {
   const c = DRAFT;
   $("cfg-cols").innerHTML = `
     <div class="cgrid">
-      <fieldset><legend>ไฟล์ Source</legend>
+      <fieldset><legend>ไฟล์ผลตอบแทนกองทุน</legend>
         <label>แถวเริ่มข้อมูล ${inp("firstRow", c.firstRow, "60px", "number")}</label><label>แถวหัวข้อช่วงเวลา ${inp("headerRow", c.headerRow, "60px", "number")}</label>
         <label>ช่องวันที่ข้อมูล ${inp("asofCell", c.asofCell, "60px")}</label><label>คอลัมน์ Firm Name ${inp("cols.firm", c.cols.firm, "50px")}</label>
         <label>คอลัมน์ Fund Code ${inp("cols.code", c.cols.code, "50px")}</label><label>คอลัมน์ชื่อไทย ${inp("cols.name", c.cols.name, "50px")}</label>
@@ -2084,7 +2084,7 @@ function renderSetup(from) {
         <label>อันดับ ${inp("offsets.rank", c.offsets.rank, "50px", "number")}</label><label>IR ${inp("offsets.ir", c.offsets.ir, "50px", "number")}</label><label>อันดับ IR ${inp("offsets.irRank", c.offsets.irRank, "50px", "number")}</label>
         <label>Sharpe ${inp("offsets.sh", c.offsets.sh, "50px", "number")}</label><label>อันดับ Sharpe ${inp("offsets.shRank", c.offsets.shRank, "50px", "number")}</label></fieldset>
       <fieldset><legend>ชื่อแถว Peer Group</legend><label>Average ${inp("peerLabels.avg", c.peerLabels.avg, "170px")}</label><label>Max ${inp("peerLabels.max", c.peerLabels.max, "170px")}</label><label>Min ${inp("peerLabels.min", c.peerLabels.min, "170px")}</label></fieldset>
-      <fieldset><legend>ไฟล์ IC Benchmark</legend><label>ชื่อชีต ${inp("bench.sheet", c.bench.sheet, "220px")}</label><label>แถวเริ่มข้อมูล ${inp("bench.firstRow", c.bench.firstRow, "60px", "number")}</label>
+      <fieldset><legend>ไฟล์ผลตอบแทนของ BM</legend><label>ชื่อชีต ${inp("bench.sheet", c.bench.sheet, "220px")}</label><label>แถวเริ่มข้อมูล ${inp("bench.firstRow", c.bench.firstRow, "60px", "number")}</label>
         <label>คอลัมน์ชื่อ BM ${inp("bench.nameCol", c.bench.nameCol, "50px")}</label>${c.periods.map(p => `<label>${p.p} ${inp(`bench.cols.${p.p}`, c.bench.cols[p.p], "50px")}</label>`).join("")}</fieldset>
     </div>`;
   srcInfo();
@@ -2190,7 +2190,7 @@ $("histclear").addEventListener("click", () => { if (!clearArm) { clearArm = tru
 $("usesample").addEventListener("click", async () => { await loadSample(); render(); renderSetup(); $("cfgmsg").textContent = "กลับไปใช้ข้อมูลตัวอย่างแล้ว"; });
 async function loadSample() {
   RAW.src = await readXlsx(b64buf(SAMPLE_SRC)); RAW.ben = await readXlsx(b64buf(SAMPLE_BEN));
-  RAW.srcName = "Source.xlsx (ตัวอย่าง)"; RAW.benName = "IC Benchmark.xlsx (ตัวอย่าง)"; RAW.sample = true; rebuild();
+  RAW.srcName = "ไฟล์ผลตอบแทนกองทุน (ตัวอย่าง)"; RAW.benName = "ผลตอบแทนของ BM (ตัวอย่าง)"; RAW.sample = true; rebuild();
 }
 async function init() {
   $("asof").textContent = "กำลังโหลดข้อมูล...";
@@ -2230,7 +2230,7 @@ function skModel(mode) {
     return {nodes, links, unit: "จำนวนกองทุน", scope: base, total: rows.length, noun: "กอง", note: "ความกว้างเส้น = จำนวนกองทุน • ชนะ BM = ผลตอบแทนกองสูงกว่า Benchmark ของกลุ่ม • กลุ่มที่เล็กรวมเป็น \"กลุ่มอื่น ๆ\" เพื่อให้ไม่เกิน ~15 กล่อง"};
   }
   if (mode === "qq") {
-    const H = histCalc(); if (!H.prev) return {nodes, links, unit: "จำนวนกองทุน", scope: base, empty: "ต้องมี Source อย่างน้อย 2 เดือน (อัปโหลดหลายเดือนในหน้า \"ข้อมูล & ตั้งค่า\") จึงจะเทียบ Quartile เดือนก่อนกับเดือนนี้ได้"};
+    const H = histCalc(); if (!H.prev) return {nodes, links, unit: "จำนวนกองทุน", scope: base, empty: "ต้องมีไฟล์ผลตอบแทนกองทุนอย่างน้อย 2 เดือน (อัปโหลดหลายเดือนในหน้า \"ข้อมูล & ตั้งค่า\") จึงจะเทียบ Quartile เดือนก่อนกับเดือนนี้ได้"};
     for (const x of H.moves) { const a = node("p" + x.o.q, "Q" + x.o.q + " " + mlabel(H.prev), 0, qColor(x.o.q)), b = node("c" + x.q, "Q" + x.q + " " + mlabel(H.cur), 1, qColor(x.q));
       link(a, b, 1, x.q < x.o.q ? "var(--q1)" : x.q > x.o.q ? "var(--q4)" : "var(--peer)", x.code); }
     nodes.forEach(n => n.ord = +n.name[1]);
