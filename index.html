@@ -1098,23 +1098,24 @@ const FS_AMC = {
 let FS_FUND_TXT = null, FS_FUND = {};
 const fsFundMap = () => { const t = CFG.fsFundText || ""; if (t !== FS_FUND_TXT) { FS_FUND_TXT = t; FS_FUND = {};
   for (const ln of t.split(/\r?\n/)) { const i = ln.indexOf("="); if (i > 0) { const k = ln.slice(0, i).trim(), v = ln.slice(i + 1).trim(); if (k && /^https?:\/\//i.test(v)) FS_FUND[k] = v; } } } return FS_FUND; };
-// แม่แบบ factsheet ผูกกับรหัส บลจ. ตั้งต้น: ถ้ารหัสในหน้าตั้งค่าถูกเปลี่ยน ให้หาจากชื่อเต็ม (Firm) แทน
-function fsKey(code) {
-  if (FS_AMC[code]) return code;
-  const am = CFG.amcs.find(a => a.code === code), d = am && CFG_DEFAULT.amcs.find(x => x.firm === am.firm);
-  return d ? d.code : code;
+// แม่แบบ factsheet ผูกกับชื่อ/รหัส บลจ. ตั้งต้น: ถ้าถูกเปลี่ยนในหน้าตั้งค่า (รหัส หรือชื่อย่อ) ให้หาจากชื่อเต็ม (Firm) แทน
+function fsKey(f) {
+  if (FS_AMC[f.a]) return f.a;
+  const am = CFG.amcs.find(a => a.code === f.a), firm = f.fn || (am && am.firm), d = firm && CFG_DEFAULT.amcs.find(x => x.firm === String(firm).trim());
+  if (d && FS_AMC[d.code]) return d.code;
+  const auto = firm ? autoShort(String(firm).trim()) : ""; return FS_AMC[auto] ? auto : f.a;
 }
 function fsUrl(f) {
   const code = String(f.code || "").trim(), e = encodeURIComponent, fm = fsFundMap();
   if (fm[code]) return fm[code];
   const am = CFG.amcs.find(a => a.code === f.a), fill = (t, c) => t.replace(/\{codeh\}/g, e(code.replace(/\s+/g, "-"))).replace(/\{code\}/g, e(c)).replace(/\{name\}/g, e(f.name || "")).replace(/\{amc\}/g, e(f.a || ""));
   if (am && String(am.fs || "").trim()) return /^https?:\/\//i.test(am.fs.trim()) ? fill(am.fs.trim(), code) : null;
-  const B = FS_AMC[fsKey(f.a)];
+  const B = FS_AMC[fsKey(f)];
   if (B) { let c = code; if (B.exc && code in B.exc) { if (B.exc[code] == null) return null; c = B.exc[code]; } else if (B.fn) c = B.fn(code); return fill(B.tpl, c); }
   const g = String(CFG.fsTpl || "").trim(); return /^https?:\/\//i.test(g) ? fill(g, code) : null;
 }
 const fsLink = (f, txt) => { const u = fsUrl(f), t = txt == null ? esc(f.code) : txt;
-  return u ? `<a class="fs" href="${esc(u)}" target="_blank" rel="noopener noreferrer" title="${(FS_AMC[fsKey(f.a)] || {}).lv === "search" ? "ค้นหา Fund Factsheet ของ " + esc(f.code) + " ใน Google" : "เปิด Fund Factsheet ของ " + esc(f.code)}">${t}</a>` : t; };
+  return u ? `<a class="fs" href="${esc(u)}" target="_blank" rel="noopener noreferrer" title="${(FS_AMC[fsKey(f)] || {}).lv === "search" ? "ค้นหา Fund Factsheet ของ " + esc(f.code) + " ใน Google" : "เปิด Fund Factsheet ของ " + esc(f.code)}">${t}</a>` : t; };
 const qColor = q => `var(--q${q})`;
 const TH_MONTHS = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
 const amcNo = a => { const i = D.amcs.indexOf(a); return i >= 0 && i < D.nCfg ? i + 1 : "–"; };
